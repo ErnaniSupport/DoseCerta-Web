@@ -1,0 +1,121 @@
+import React, { useEffect, useState } from "react";
+import api from "../services/api";
+
+export default function ListaTransferencias() {
+  const [transferencias, setTransferencias] = useState([]);
+  const [vacinas, setVacinas] = useState([]);
+  const [unidades, setUnidades] = useState([]);
+  const [editando, setEditando] = useState(null);
+  const [form, setForm] = useState({
+    vacina_id:"", estabelecimento_origem:"", estabelecimento_destino:"", quantidade_transferida:0, data_transferencia:"", nome_agente:"", cpf_agente:""
+  });
+
+  useEffect(() => {
+    carregar();
+    api.get("/vacinas").then(r=>setVacinas(r.data));
+    api.get("/unidades").then(r=>setUnidades(r.data));
+  }, []);
+
+  async function carregar() {
+    const res = await api.get("/transferencias");
+    setTransferencias(res.data);
+  }
+
+  async function excluir(id) {
+    if (window.confirm("Deseja excluir esta transferência?")) {
+      await api.delete(`/transferencias/${id}`);
+      carregar();
+    }
+  }
+
+  function iniciarEdicao(t) {
+    setEditando(t.id);
+    setForm(t);
+  }
+
+  async function salvarEdicao(e) {
+    e.preventDefault();
+    const payload = { ...form, quantidade_transferida: Number(form.quantidade_transferida) };
+    await api.put(`/transferencias/${editando}`, payload);
+    setEditando(null);
+    carregar();
+  }
+
+  function nomeVacina(id) {
+    const v = vacinas.find(x => String(x.id) === String(id));
+    return v ? `${v.nome_vacina} (${v.lote})` : id;
+    }
+  function nomeUnidade(id) {
+    const u = unidades.find(x => String(x.id) === String(id));
+    return u ? u.nome_fantasia : id;
+  }
+
+  return (
+    <div className="page">
+      <h2>Transferências Registradas</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Vacina</th><th>Origem</th><th>Destino</th><th>Quantidade</th><th>Data</th><th>Agente</th><th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transferencias.map(t => (
+            <tr key={t.id}>
+              <td>{nomeVacina(t.vacina_id)}</td>
+              <td>{nomeUnidade(t.estabelecimento_origem)}</td>
+              <td>{nomeUnidade(t.estabelecimento_destino)}</td>
+              <td>{t.quantidade_transferida}</td>
+              <td>{t.data_transferencia}</td>
+              <td>{t.nome_agente}</td>
+              <td>
+                <button onClick={() => iniciarEdicao(t)}>Editar</button>
+                <button onClick={() => excluir(t.id)}>Excluir</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {editando && (
+        <form onSubmit={salvarEdicao} className="form-card">
+          <h3>Editando Transferência</h3>
+          <label>Vacina
+            <select name="vacina_id" value={form.vacina_id} onChange={e => setForm({ ...form, vacina_id: e.target.value })}>
+              <option value="">Selecione</option>
+              {vacinas.map(v => <option key={v.id} value={v.id}>{v.nome_vacina} — {v.lote}</option>)}
+            </select>
+          </label>
+          <label>Origem
+            <select name="estabelecimento_origem" value={form.estabelecimento_origem} onChange={e => setForm({ ...form, estabelecimento_origem: e.target.value })}>
+              <option value="">Selecione origem</option>
+              {unidades.map(u => <option key={u.id} value={u.id}>{u.nome_fantasia}</option>)}
+            </select>
+          </label>
+          <label>Destino
+            <select name="estabelecimento_destino" value={form.estabelecimento_destino} onChange={e => setForm({ ...form, estabelecimento_destino: e.target.value })}>
+              <option value="">Selecione destino</option>
+              {unidades.map(u => <option key={u.id} value={u.id}>{u.nome_fantasia}</option>)}
+            </select>
+          </label>
+          <label>Quantidade
+            <input type="number" name="quantidade_transferida" value={form.quantidade_transferida} onChange={e => setForm({ ...form, quantidade_transferida: e.target.value })} />
+          </label>
+          <label>Data
+            <input type="date" name="data_transferencia" value={form.data_transferencia} onChange={e => setForm({ ...form, data_transferencia: e.target.value })} />
+          </label>
+          <label>Nome agente
+            <input name="nome_agente" value={form.nome_agente} onChange={e => setForm({ ...form, nome_agente: e.target.value })} />
+          </label>
+          <label>CPF agente
+            <input name="cpf_agente" value={form.cpf_agente} onChange={e => setForm({ ...form, cpf_agente: e.target.value })} />
+          </label>
+          <div className="form-actions">
+            <button type="submit" className="primary">Salvar</button>
+            <button onClick={() => setEditando(null)} type="button">Cancelar</button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+}
