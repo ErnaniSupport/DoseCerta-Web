@@ -1,43 +1,114 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import "../styles/Dashboard.css"; // << importe o css aqui
 
 const Icon = ({ name }) => {
   const icons = {
-    agentes: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-7 2-7 4v1h14v-1c0-2-3-4-7-4z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    unidade: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-6 9 6v7a1 1 0 01-1 1h-4v-5H8v5H4a1 1 0 01-1-1v-7z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    vacina: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M21 7l-4 4M3 21l1-4 11-11 4 4L8 21z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    transf: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M21 12h-18M15 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    rel: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /><path d="M7 13h4v6H7zM13 7h4v12h-4z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-    cfg: <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M12 15.5A3.5 3.5 0 1112 8.5a3.5 3.5 0 010 7zM19.4 15a7.5 7.5 0 000-6l2.2-1.7-2-3.4L17 5a7.5 7.5 0 00-5-2l-.5-2.6h-4l-.5 2.6a7.5 7.5 0 00-5 2L1.5 3.9l-2 3.4L1.7 9a7.5 7.5 0 000 6l-2.2 1.7 2 3.4L7 19a7.5 7.5 0 005 2l.5 2.6h4l.5-2.6a7.5 7.5 0 005-2l3.8 1.1 2-3.4L19.4 15z" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+    agentes: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <circle cx="24" cy="14" r="10" fill="#4FC3F7" />
+        <rect x="10" y="26" width="28" height="18" rx="9" fill="#0288D1" />
+      </svg>
+    ),
+
+    unidade: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <rect x="6" y="18" width="36" height="24" fill="#4DB6AC" />
+        <rect x="18" y="6" width="12" height="12" fill="#00897B" />
+        <rect x="22" y="10" width="4" height="4" fill="#FFF" />
+      </svg>
+    ),
+
+    vacina: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <rect x="20" y="4" width="8" height="14" fill="#E91E63" />
+        <rect x="16" y="18" width="16" height="20" fill="#F06292" />
+        <circle cx="24" cy="28" r="4" fill="#FFF" />
+      </svg>
+    ),
+
+    transf: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <path d="M6 16h30l-8-8" fill="#42A5F5" />
+        <path d="M42 32H12l8 8" fill="#1E88E5" />
+      </svg>
+    ),
+
+    // === NOVOS ÍCONES ===
+    dose: (
+      <svg width="48" height="48" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" fill="#7E57C2" />
+        <circle cx="8" cy="9" r="2" fill="#CE93D8" />
+        <rect x="11" y="8" width="7" height="2" fill="#E1BEE7" />
+
+        <circle cx="8" cy="15" r="2" fill="#CE93D8" />
+        <rect x="11" y="14" width="7" height="2" fill="#E1BEE7" />
+      </svg>
+    ),
+
+    alerta: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <polygon points="24,4 44,40 4,40" fill="#FF7043" />
+        <rect x="22" y="18" width="4" height="12" fill="#FFF" />
+        <rect x="22" y="32" width="4" height="4" fill="#FFF" />
+      </svg>
+    ),
+
+    agenda: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <rect x="4" y="10" width="40" height="30" fill="#29B6F6" />
+        <rect x="4" y="10" width="40" height="8" fill="#0277BD" />
+        <circle cx="16" cy="26" r="4" fill="#FFF" />
+      </svg>
+    ),
+
+    historico: (
+      <svg width="48" height="48" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="20" fill="#81C784" />
+        <path d="M24 12v12l8 4" stroke="#FFF" strokeWidth="4" fill="none" />
+      </svg>
+    ),
   };
+
   return <span className="icon-svg">{icons[name]}</span>;
 };
 
 export default function Dashboard() {
+
   const cards = [
-    { to: '/agentes', label: 'Agentes', icon: 'agentes' },
-    { to: '/unidades', label: 'Unidades de Saúde', icon: 'unidade' },
-    { to: '/vacinas', label: 'Vacinas', icon: 'vacina' },
-    { to: '/transferencias', label: 'Transferências', icon: 'transf' },
-    { to: '/lista-agentes', label: 'Listar Agentes', icon: 'agentes' },
+    // CADASTROS e LISTAGENS
+    { to: '/agentes', label: 'Cadastramento de Profissionais', icon: 'agentes' },
+    { to: '/lista-agentes', label: 'Listar Agentes Cadastrados', icon: 'agentes' },
+
+    { to: '/unidades', label: 'Cadastramento de Unidades de Saúde', icon: 'unidade' },
     { to: '/lista-unidades', label: 'Listar Unidades', icon: 'unidade' },
-    { to: '/lista-vacinas', label: 'Listar Vacinas', icon: 'vacina' },
-    { to: '/lista-transferencias', label: 'Listar Transferências', icon: 'transf' }
+
+    { to: '/vacinas', label: 'Cadastramento de Vacinas', icon: 'vacina' },
+    { to: '/lista-vacinas', label: 'Listar Vacinas Cadastradas', icon: 'vacina' },
+    { to: '/transferencias', label: 'Transferências de Vacinas', icon: 'transf' },
+
+       
+    
+    
+    { to: '/lista-transferencias', label: 'Listar Vacinas Transferidas', icon: 'transf' },
+    { to: '/lista-doses', label: 'Listar Doses', icon: 'dose' },
+    { to: '/lista-agendamentos', label: 'Listar Agendamentos', icon: 'agenda' },
+    { to: '/lista-historico', label: 'Listar Histórico', icon: 'historico' },
+
+    // NOVAS FUNÇÕES
+    { to: '/registrar-doses', label: 'Registrar Doses Aplicadas', icon: 'dose' },
+    { to: '/alertas-vencimento', label: 'Alerta de Vacinas', icon: 'alerta' },
+    { to: '/agendar-vacina', label: 'Agendar Dose de Vacina', icon: 'agenda' },
+    { to: '/historico', label: 'Histórico de Imunização', icon: 'historico' },
   ];
 
   return (
-    <div className="page"
-    >
+    <div className="page">
       <div className="page-header">
         <h1>Bem vindo! Você está no Dose Certa</h1>
-        <div className="search-box">
-          <input placeholder="Buscar funcionalidades" />
-        </div>
       </div>
 
-      <h2 className="section-title">Gerenciamento</h2>
-      <p className="muted">Aqui estão as funcionalidades do sistema.</p>
+     
 
       <div className="cards-grid">
         {cards.map((c, i) => (

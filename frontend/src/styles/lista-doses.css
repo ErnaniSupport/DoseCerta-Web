@@ -1,0 +1,56 @@
+.page {
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* TABELA */
+.tabela-doses {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.tabela-doses th {
+  background: #0288D1;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.tabela-doses td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+/* Alternância de linhas */
+.tabela-doses tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+.tabela-doses tbody tr:hover {
+  background: #eaf4ff;
+}
+
+/* Botão excluir */
+.btn-delete {
+  background: #D32F2F;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.btn-delete:hover {
+  background: #B71C1C;
+}

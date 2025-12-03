@@ -1,0 +1,67 @@
+body {
+    background-image: url('/public/fundo.jpg');
+    background-size: cover;
+    /* cobre toda a tela */
+    background-position: center;
+    /* centralizado */
+    background-repeat: no-repeat;
+    /* não repete */
+    background-attachment: fixed;
+    /* fixa no scroll */
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: #222;
+
+}
+
+.page {
+    background-image: url('/public/fundo.jpg');
+    background-size: cover;
+    /* cobre 100% da tela */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* efeito parallax */
+    
+    max-width: 900px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    
+}
+
+.cards-grid {
+    
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: rgb(250, 250, 250);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 15px;
+
+}
+
+.card-label {
+    font-weight: 600;
+}

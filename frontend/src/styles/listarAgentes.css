@@ -1,0 +1,43 @@
+/* ------------------------- */
+/* CARTÃO DE FORMULÁRIO DE EDIÇÃO */
+/* ------------------------- */
+.form-card {
+  background: #fff;
+  padding: 22px;
+  margin-top: 25px;
+  width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: slideUp 0.25s ease;
+}
+
+.form-card h3 {
+  margin-bottom: 15px;
+  color: #0288D1;
+  text-align: center;
+}
+
+/* Campos */
+.form-card label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-card input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;
+  font-size: 15px;
+}
+
+/* Botões do card */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
