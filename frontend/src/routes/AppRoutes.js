@@ -14,6 +14,7 @@ import ListaUnidades from "../pages/Listagens/ListaUnidades";
 import ListaVacinas from "../pages/Listagens/ListaVacinas";
 import ListaTransferencias from "../pages/Listagens/ListaTransferencias";
 import ListaDoses from "../pages/Listagens/ListaDoses";
+import ListaHistorico from "../pages/Listagens/ListaDoses";
 import ListaAgendamentos from "../pages/Listagens/ListaAgendamentos";
 
 
@@ -21,7 +22,7 @@ import ListaAgendamentos from "../pages/Listagens/ListaAgendamentos";
 import RegistrarDoses from "../pages/RegistrarDoses";
 import AlertasVencimento from "../pages/AlertasVencimento";
 import AgendarVacina from "../pages/AgendarVacina";
-import HistoricoImunizacao from "../pages/HistoricoImunizacao";
+
 
 
 export default function AppRoutes() {
@@ -58,13 +59,13 @@ export default function AppRoutes() {
         <Route path="/lista-transferencias" element={<ListaTransferencias />} />
         <Route path="/lista-doses" element={<ListaDoses />} />
         <Route path="/lista-agendamentos" element={<ListaAgendamentos />} />
-        <Route path="/lista-historico" element={<HistoricoImunizacao />} />
+        <Route path="/lista-historico" element={<ListaHistorico />} />
 
         {/* NOVAS FUNÇÕES */}
         <Route path="/registrar-doses" element={<RegistrarDoses />} />
         <Route path="/alertas-vencimento" element={<AlertasVencimento />} />
         <Route path="/agendar-vacina" element={<AgendarVacina />} />
-        <Route path="/historico-imunizacao" element={<HistoricoImunizacao />} />
+        
       </Routes>
     </BrowserRouter>
   );

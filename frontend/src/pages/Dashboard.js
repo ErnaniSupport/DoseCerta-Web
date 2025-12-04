@@ -85,21 +85,21 @@ export default function Dashboard() {
 
     { to: '/vacinas', label: 'Cadastramento de Vacinas', icon: 'vacina' },
     { to: '/lista-vacinas', label: 'Listar Vacinas Cadastradas', icon: 'vacina' },
-    { to: '/transferencias', label: 'Transferências de Vacinas', icon: 'transf' },
 
-       
-    
-    
+    { to: '/transferencias', label: 'Transferências de Vacinas', icon: 'transf' },
     { to: '/lista-transferencias', label: 'Listar Vacinas Transferidas', icon: 'transf' },
+
     { to: '/lista-doses', label: 'Listar Doses', icon: 'dose' },
+    { to: '/agendar-vacina', label: 'Agendar Dose de Vacina', icon: 'agenda' },
     { to: '/lista-agendamentos', label: 'Listar Agendamentos', icon: 'agenda' },
+
     { to: '/lista-historico', label: 'Listar Histórico', icon: 'historico' },
 
     // NOVAS FUNÇÕES
     { to: '/registrar-doses', label: 'Registrar Doses Aplicadas', icon: 'dose' },
     { to: '/alertas-vencimento', label: 'Alerta de Vacinas', icon: 'alerta' },
-    { to: '/agendar-vacina', label: 'Agendar Dose de Vacina', icon: 'agenda' },
-    { to: '/historico', label: 'Histórico de Imunização', icon: 'historico' },
+
+
   ];
 
   return (
@@ -107,8 +107,6 @@ export default function Dashboard() {
       <div className="page-header">
         <h1>Bem vindo! Você está no Dose Certa</h1>
       </div>
-
-     
 
       <div className="cards-grid">
         {cards.map((c, i) => (

@@ -25,8 +25,7 @@ body {
     /* efeito parallax */
     
     max-width: 900px;
-    margin: 0 auto;
-
+    margin-left: 10%;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -34,15 +33,12 @@ body {
 }
 
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+
+    margin-bottom: 30px;
     
 }
 
 .cards-grid {
-    
     align-items: center;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
