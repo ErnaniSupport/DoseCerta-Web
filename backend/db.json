@@ -154,6 +154,14 @@
       "data_aplicacao": "2025-12-03",
       "lote": "LD30",
       "id": 2
+    },
+    {
+      "vacina_id": "2",
+      "nome_paciente": "JOÃO KLEBER",
+      "cpf_paciente": "12345687995",
+      "data_aplicacao": "2025-12-04",
+      "lote": "LF05",
+      "id": 3
     }
   ],
   "agendamentos": [
