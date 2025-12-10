@@ -4,7 +4,7 @@ import "../styles/Dashboard.css"; // << importe o css aqui
 
 const Icon = ({ name }) => {
   const icons = {
-    agentes: (
+    profissionais: (
       <svg width="48" height="48" viewBox="0 0 48 48">
         <circle cx="24" cy="14" r="10" fill="#4FC3F7" />
         <rect x="10" y="26" width="28" height="18" rx="9" fill="#0288D1" />
@@ -77,11 +77,11 @@ export default function Dashboard() {
 
   const cards = [
     // CADASTROS e LISTAGENS
-    { to: '/agentes', label: 'Cadastramento de Profissionais', icon: 'agentes' },
-    { to: '/lista-agentes', label: 'Listar Agentes Cadastrados', icon: 'agentes' },
+    { to: '/profissionais', label: 'Cadastramento de Profissionais', icon: 'profissionais' },
+    { to: '/lista-profissionais', label: 'Listar Profissionais Cadastrados', icon: 'profissionais' },
 
     { to: '/unidades', label: 'Cadastramento de Unidades de Saúde', icon: 'unidade' },
-    { to: '/lista-unidades', label: 'Listar Unidades', icon: 'unidade' },
+    { to: '/lista-unidades', label: 'Listar Unidades de Saúde', icon: 'unidade' },
 
     { to: '/vacinas', label: 'Cadastramento de Vacinas', icon: 'vacina' },
     { to: '/lista-vacinas', label: 'Listar Vacinas Cadastradas', icon: 'vacina' },
@@ -89,9 +89,11 @@ export default function Dashboard() {
     { to: '/transferencias', label: 'Transferências de Vacinas', icon: 'transf' },
     { to: '/lista-transferencias', label: 'Listar Vacinas Transferidas', icon: 'transf' },
 
-    { to: '/lista-doses', label: 'Listar Doses', icon: 'dose' },
-    { to: '/agendar-vacina', label: 'Agendar Dose de Vacina', icon: 'agenda' },
+    { to: '/agendar-vacina', label: 'Agendar Vacina', icon: 'agenda' },
     { to: '/lista-agendamentos', label: 'Listar Agendamentos', icon: 'agenda' },
+    
+
+    { to: '/lista-doses', label: 'Listar Doses', icon: 'dose' },
 
     { to: '/lista-historico', label: 'Listar Histórico', icon: 'historico' },
 

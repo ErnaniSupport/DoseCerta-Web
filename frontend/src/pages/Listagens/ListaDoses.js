@@ -24,7 +24,7 @@ export default function ListaDoses() {
     <div className="page">
       <h1>Listagem de Doses Aplicadas</h1>
 
-      <table className="tabela-doses">
+      <table className="pagetabela-doses">
         <thead>
           <tr>
             <th>Paciente</th>

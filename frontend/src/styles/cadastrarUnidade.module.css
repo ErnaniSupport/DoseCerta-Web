@@ -1,0 +1,49 @@
+.CadastroUnidade {
+  max-width: 600px;
+  margin: 40px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Card do formulário */
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-card label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-card input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.form-actions-botao {
+  display: flex;
+  justify-content: right;
+}
+
+.primary {
+  padding: 10px 25px;
+  background: #0d6efd;
+  color: #fff;
+  margin-right: 5px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  
+}
+

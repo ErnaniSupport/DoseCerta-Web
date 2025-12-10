@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 // importa seu CSS
-import "./../../styles/tabelaAgendamento.css"; // <<< CSS da tabela
+import "./../../styles/Listagem/tabelaAgendamento.css"; // <<< CSS da tabela
 
 export default function ListaAgendamentos() {
   const [agendamentos, setAgendamentos] = useState([]);
@@ -56,11 +56,11 @@ export default function ListaAgendamentos() {
       <table className="tabela-doses">
         <thead>
           <tr>
-            <th>Paciente</th>
+            <th>PACIENTE</th>
             <th>CPF</th>
-            <th>Vacina</th>
-            <th>Data</th>
-            <th>Ações</th>
+            <th>VACINA</th>
+            <th>DATA</th>
+            <th>AÇÕES</th>
           </tr>
         </thead>
 

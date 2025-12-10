@@ -1,72 +1,160 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
+// ÍCONES
+import {
+  FaHome, FaUserNurse, FaHospital, FaSyringe, FaExchangeAlt, FaList, FaListAlt, FaClipboardList, FaHistory, FaCheckCircle, FaExclamationTriangle, FaCalendarAlt
+} from "react-icons/fa";
+
 // PRINCIPAIS
 import Dashboard from "../pages/Dashboard";
-import CadastroAgente from "../pages/CadastroAgente";
+import CadastroProfissionais from "../pages/CadastroProfissionais";
 import CadastroUnidade from "../pages/CadastroUnidade";
 import CadastroVacina from "../pages/CadastroVacina";
+import AgendarVacina from "../pages/AgendarVacina";
 import TransferenciaVacina from "../pages/TransferenciaVacina";
 
 // LISTAGENS
-import ListaAgentes from "../pages/Listagens/ListaAgentes";
+import ListaAgendamentos from "../pages/Listagens/ListaAgendamentos";
+import ListaProfissionais from "../pages/Listagens/ListaProfissionais";
 import ListaUnidades from "../pages/Listagens/ListaUnidades";
 import ListaVacinas from "../pages/Listagens/ListaVacinas";
 import ListaTransferencias from "../pages/Listagens/ListaTransferencias";
 import ListaDoses from "../pages/Listagens/ListaDoses";
 import ListaHistorico from "../pages/Listagens/ListaDoses";
-import ListaAgendamentos from "../pages/Listagens/ListaAgendamentos";
 
 
 // NOVAS FUNÇÕES
 import RegistrarDoses from "../pages/RegistrarDoses";
 import AlertasVencimento from "../pages/AlertasVencimento";
-import AgendarVacina from "../pages/AgendarVacina";
-
 
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <nav style={{ padding: 12, background: "#fff", borderBottom: "1px solid #eee" }}>
-        <Link to="/" style={{ marginRight: 12 }}>Dashboard</Link>
-        <Link to="/agentes" style={{ marginRight: 12 }}>Cadastro Agente</Link>
-        <Link to="/unidades" style={{ marginRight: 12 }}>Cadastro Unidade</Link>
-        <Link to="/vacinas" style={{ marginRight: 12 }}>Cadastro Vacina</Link>
-        <Link to="/transferencias" style={{ marginRight: 12 }}>Transferência</Link>
+      <div style={{ display: "flex", height: "100vh" }}>
 
-        {/* LISTAGENS */}
-        <Link to="/lista-agentes" style={{ marginRight: 12 }}>Agentes</Link>
-        <Link to="/lista-unidades" style={{ marginRight: 12 }}>Unidades</Link>
-        <Link to="/lista-vacinas" style={{ marginRight: 12 }}>Vacinas</Link>
-        <Link to="/lista-transferencias" style={{ marginRight: 12 }}>Transferências</Link>
-      </nav>
+        {/* SIDEBAR */}
+        <aside
+          style={{
+            width: "260px",
+            background: "#f8f9fa",
+            borderRight: "1px solid #ddd",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+        >
+          <h3 style={{ marginBottom: 20 }}>Menu</h3>
 
-      <Routes>
-        {/* PRINCIPAL */}
-        <Route path="/" element={<Dashboard />} />
+          {/* PRINCIPAL */}
+          <Link to="/" style={linkStyle}><FaHome /> Dashboard</Link>
 
-        {/* CADASTROS */}
-        <Route path="/agentes" element={<CadastroAgente />} />
-        <Route path="/unidades" element={<CadastroUnidade />} />
-        <Route path="/vacinas" element={<CadastroVacina />} />
-        <Route path="/transferencias" element={<TransferenciaVacina />} />
+          {/* CADASTROS */}
+          <Link to="/profissionais" style={linkStyle}>
+            <FaUserNurse /> Cadastros de Profissionais
+          </Link>
 
-        {/* LISTAGENS */}
-        <Route path="/lista-agentes" element={<ListaAgentes />} />
-        <Route path="/lista-unidades" element={<ListaUnidades />} />
-        <Route path="/lista-vacinas" element={<ListaVacinas />} />
-        <Route path="/lista-transferencias" element={<ListaTransferencias />} />
-        <Route path="/lista-doses" element={<ListaDoses />} />
-        <Route path="/lista-agendamentos" element={<ListaAgendamentos />} />
-        <Route path="/lista-historico" element={<ListaHistorico />} />
+          <Link to="/unidades" style={linkStyle}>
+            <FaHospital /> Cadastro Unidade
+          </Link>
 
-        {/* NOVAS FUNÇÕES */}
-        <Route path="/registrar-doses" element={<RegistrarDoses />} />
-        <Route path="/alertas-vencimento" element={<AlertasVencimento />} />
-        <Route path="/agendar-vacina" element={<AgendarVacina />} />
-        
-      </Routes>
+          <Link to="/vacinas" style={linkStyle}>
+            <FaSyringe /> Cadastro Vacina
+          </Link>
+
+          <Link to="/transferencias" style={linkStyle}>
+            <FaExchangeAlt /> Transferência
+          </Link>
+
+          <Link to="/agendar-vacina" style={linkStyle}>
+            <FaCalendarAlt /> Agendar Vacina
+          </Link>
+
+          <Link to="/lista-agendamentos" style={linkStyle}>
+            <FaCalendarAlt /> Agendados
+          </Link>
+
+          <h3 style={{ marginTop: 20 }}>Lista de Cadastro</h3>
+
+          {/* LISTAGENS */}
+          <Link to="/lista-profissionais" style={linkStyle}>
+            <FaList /> Profissionais
+          </Link>
+
+          <Link to="/lista-unidades" style={linkStyle}>
+            <FaListAlt /> Unidades
+          </Link>
+
+          <Link to="/lista-vacinas" style={linkStyle}>
+            <FaClipboardList /> Vacinas
+          </Link>
+
+          <Link to="/lista-transferencias" style={linkStyle}>
+            <FaExchangeAlt /> Transferências
+          </Link>
+
+          <Link to="/lista-doses" style={linkStyle}>
+            <FaCheckCircle /> Doses Aplicadas
+          </Link>
+          
+          <Link to="/lista-historico" style={linkStyle}>
+            <FaHistory /> Histórico
+          </Link>
+
+          {/* NOVAS FUNÇÕES */}
+          <hr />
+
+          <Link to="/registrar-doses" style={linkStyle}>
+            <FaCheckCircle /> Registrar Doses
+          </Link>
+
+          <Link to="/alertas-vencimento" style={linkStyle}>
+            <FaExclamationTriangle /> Alertas de Vencimento
+          </Link>
+         
+        </aside>
+
+        {/* CONTEÚDO PRINCIPAL */}
+        <main style={{ flex: 1, padding: "20px", overflowY: "auto" }}>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+
+            <Route path="/profissionais" element={<CadastroProfissionais />} />
+            <Route path="/unidades" element={<CadastroUnidade />} />
+            <Route path="/vacinas" element={<CadastroVacina />} />
+            <Route path="/agendar-vacina" element={<AgendarVacina />} />
+            <Route path="/transferencias" element={<TransferenciaVacina />} />
+            
+            <Route path="/lista-agendamentos" element={<ListaAgendamentos />} />
+            <Route path="/lista-profissionais" element={<ListaProfissionais />} />
+            <Route path="/lista-unidades" element={<ListaUnidades />} />
+            <Route path="/lista-vacinas" element={<ListaVacinas />} />
+            <Route path="/lista-transferencias" element={<ListaTransferencias />} />
+            <Route path="/lista-doses" element={<ListaDoses />} />
+            
+            <Route path="/lista-historico" element={<ListaHistorico />} />
+
+            <Route path="/registrar-doses" element={<RegistrarDoses />} />
+            <Route path="/alertas-vencimento" element={<AlertasVencimento />} />
+            
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   );
 }
+
+// Estilo dos links
+const linkStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  textDecoration: "none",
+  color: "#333",
+  fontSize: "16px",
+  padding: "8px",
+  borderRadius: "5px",
+  transition: "0.2s",
+};

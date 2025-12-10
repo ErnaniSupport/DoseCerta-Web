@@ -1,0 +1,41 @@
+.pageListaProfissionais {
+  max-width: 900px;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: Arial, sans-serif;
+}
+
+/* GRID do formulário */
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 5px;
+}
+
+/* Título ocupa toda a largura */
+.form-card h3 {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #0288D1;
+  font-size: 22px;
+}
+
+/* Labels + inputs */
+.form-card label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-card input {
+  margin-top: 6px;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+

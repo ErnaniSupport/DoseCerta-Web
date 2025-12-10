@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import api from '../services/api';
-import styles from "../styles/cadastrarAgentes.module.css"; 
+import styles from "../styles/cadastrarProfissionais.module.css"; 
 
-export default function CadastroAgente() {
+export default function CadastroProfissionais() {
   const [form, setForm] = useState({
     nome: '', cpf: '', cns: '', cbo: '', municipio: '', uf: ''
   });
@@ -18,8 +18,8 @@ export default function CadastroAgente() {
       return;
     }
     try {
-      await api.post('/agentes', form);
-      alert('Agente cadastrado!');
+      await api.post('/profissionais', form);
+      alert('Profissional de Saúde Cadastrado!');
       setForm({ nome: '', cpf: '', cns: '', cbo: '', municipio: '', uf: '' });
     } catch (err) {
       console.error(err);
@@ -28,12 +28,12 @@ export default function CadastroAgente() {
   }
 
   return (
-    <div className={styles.CadastroAgente}>
-      <h2>Cadastro de Agente</h2>
+    <div className={styles.CadastroProfissionais}>
+      <h2>Cadastro de Profissionais</h2>
 
       <form className={styles["form-card"]} onSubmit={salvar}>
 
-        <label>Nome
+        <label>NOME
           <input name="nome" value={form.nome} onChange={handle} />
         </label>
 
@@ -49,7 +49,7 @@ export default function CadastroAgente() {
           <input name="cbo" value={form.cbo} onChange={handle} />
         </label>
 
-        <label>Município
+        <label>MUNICÍPIO
           <input name="municipio" value={form.municipio} onChange={handle} />
         </label>
 

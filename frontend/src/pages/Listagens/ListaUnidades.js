@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
+import "./../../styles/Listagem/listarUnidades.css"; // 🔵 opcional, pode usar o mesmo CSS global
 
 export default function ListaUnidades() {
   const [unidades, setUnidades] = useState([]);
   const [editando, setEditando] = useState(null);
-  const [form, setForm] = useState({ cnes:"", nome_fantasia:"", nome_empresarial:"", tipo_estabelecimento:"", subtipo:"", municipio:"", uf:"" });
 
-  useEffect(() => { carregarUnidades(); }, []);
+  const [form, setForm] = useState({
+    cnes: "",
+    nome_fantasia: "",
+    nome_empresarial: "",
+    tipo_estabelecimento: "",
+    subtipo: "",
+    municipio: "",
+    uf: ""
+  });
+
+  useEffect(() => {
+    carregarUnidades();
+  }, []);
 
   async function carregarUnidades() {
     const res = await api.get("/unidades");
@@ -33,16 +45,25 @@ export default function ListaUnidades() {
   }
 
   return (
-    <div className="page">
+    <div className="pageUnidade">
       <h2>Unidades de Saúde</h2>
-      <table className="table">
+
+      <table className="tabela-doses">
         <thead>
           <tr>
-            <th>Nome Fantasia</th><th>Empresarial</th><th>CNES</th><th>Tipo</th><th>Subtipo</th><th>Município</th><th>UF</th><th>Ações</th>
+            <th>NOME FANTASIA</th>
+            <th>EMPRESARIAL</th>
+            <th>CNES</th>
+            <th>TIPO</th>
+            <th>SUBTIPO</th>
+            <th>MUNÍCIPIO</th>
+            <th>UF</th>
+            <th>AÇÕES</th>
           </tr>
         </thead>
+
         <tbody>
-          {unidades.map(u => (
+          {unidades.map((u) => (
             <tr key={u.id}>
               <td>{u.nome_fantasia}</td>
               <td>{u.nome_empresarial}</td>
@@ -51,9 +72,15 @@ export default function ListaUnidades() {
               <td>{u.subtipo}</td>
               <td>{u.municipio}</td>
               <td>{u.uf}</td>
-              <td>
-                <button onClick={() => iniciarEdicao(u)}>Editar</button>
-                <button onClick={() => excluir(u.id)}>Excluir</button>
+
+              <td style={{ display: "flex", gap: "10px" }}>
+                <button className="btn-edit" onClick={() => iniciarEdicao(u)}>
+                  Editar
+                </button>
+
+                <button className="btn-delete" onClick={() => excluir(u.id)}>
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
@@ -61,20 +88,90 @@ export default function ListaUnidades() {
       </table>
 
       {editando && (
-        <form onSubmit={salvarEdicao} className="form-card">
+        <div className="form-card">
           <h3>Editando Unidade</h3>
-          <label>Nome fantasia<input name="nome_fantasia" value={form.nome_fantasia} onChange={e => setForm({ ...form, nome_fantasia: e.target.value })} /></label>
-          <label>Nome empresarial<input name="nome_empresarial" value={form.nome_empresarial} onChange={e => setForm({ ...form, nome_empresarial: e.target.value })} /></label>
-          <label>CNES<input name="cnes" value={form.cnes} onChange={e => setForm({ ...form, cnes: e.target.value })} /></label>
-          <label>Tipo<input name="tipo_estabelecimento" value={form.tipo_estabelecimento} onChange={e => setForm({ ...form, tipo_estabelecimento: e.target.value })} /></label>
-          <label>Subtipo<input name="subtipo" value={form.subtipo} onChange={e => setForm({ ...form, subtipo: e.target.value })} /></label>
-          <label>Município<input name="municipio" value={form.municipio} onChange={e => setForm({ ...form, municipio: e.target.value })} /></label>
-          <label>UF<input name="uf" value={form.uf} onChange={e => setForm({ ...form, uf: e.target.value })} /></label>
+
+          <label>
+            Nome Fantasia
+            <input
+              name="nome_fantasia"
+              value={form.nome_fantasia}
+              onChange={(e) =>
+                setForm({ ...form, nome_fantasia: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            Nome Empresarial
+            <input
+              name="nome_empresarial"
+              value={form.nome_empresarial}
+              onChange={(e) =>
+                setForm({ ...form, nome_empresarial: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            CNES
+            <input
+              name="cnes"
+              value={form.cnes}
+              onChange={(e) => setForm({ ...form, cnes: e.target.value })}
+            />
+          </label>
+
+          <label>
+            Tipo
+            <input
+              name="tipo_estabelecimento"
+              value={form.tipo_estabelecimento}
+              onChange={(e) =>
+                setForm({ ...form, tipo_estabelecimento: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            Subtipo
+            <input
+              name="subtipo"
+              value={form.subtipo}
+              onChange={(e) => setForm({ ...form, subtipo: e.target.value })}
+            />
+          </label>
+
+          <label>
+            Município
+            <input
+              name="municipio"
+              value={form.municipio}
+              onChange={(e) =>
+                setForm({ ...form, municipio: e.target.value })
+              }
+            />
+          </label>
+
+          <label>
+            UF
+            <input
+              name="uf"
+              value={form.uf}
+              onChange={(e) => setForm({ ...form, uf: e.target.value })}
+            />
+          </label>
+
           <div className="form-actions">
-            <button type="submit" className="primary">Salvar</button>
-            <button onClick={() => setEditando(null)} type="button">Cancelar</button>
+            <button className="btn-edit" onClick={salvarEdicao}>
+              Salvar
+            </button>
+
+            <button className="btn-delete" onClick={() => setEditando(null)}>
+              Cancelar
+            </button>
           </div>
-        </form>
+        </div>
       )}
     </div>
   );

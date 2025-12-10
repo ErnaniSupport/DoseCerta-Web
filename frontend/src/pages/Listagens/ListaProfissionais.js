@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
-import "./../../styles/listarAgentes.css"; // 🔵 importa o CSS
+import "./../../styles/Listagem/listarProfissionais.css"; // 🔵 importa o CSS
 
-export default function ListaAgentes() {
-  const [agentes, setAgentes] = useState([]);
+export default function ListaProfissionais() {
+  const [profissionais, setProfissionais] = useState([]);
   const [editando, setEditando] = useState(null);
   const [form, setForm] = useState({
     nome: "",
@@ -15,53 +15,53 @@ export default function ListaAgentes() {
   });
 
   useEffect(() => {
-    carregarAgentes();
+    carregarProfissionais();
   }, []);
 
-  async function carregarAgentes() {
-    const res = await api.get("/agentes");
-    setAgentes(res.data);
+  async function carregarProfissionais() {
+    const res = await api.get("/profissionais");
+    setProfissionais(res.data);
   }
 
   async function excluir(id) {
-    if (window.confirm("Deseja excluir este agente?")) {
-      await api.delete(`/agentes/${id}`);
-      carregarAgentes();
+    if (window.confirm("Deseja excluir este profissional?")) {
+      await api.delete(`/profissionais/${id}`);
+      carregarProfissionais();
     }
   }
 
-  function iniciarEdicao(agente) {
-    setEditando(agente.id);
-    setForm(agente);
+  function iniciarEdicao(profissionais) {
+    setEditando(profissionais.id);
+    setForm(profissionais);
   }
 
   async function salvarEdicao(e) {
     e.preventDefault();
-    await api.put(`/agentes/${editando}`, form);
+    await api.put(`/profissionais/${editando}`, form);
     setEditando(null);
-    carregarAgentes();
+    carregarProfissionais();
   }
 
   return (
-    <div className="page">
-      <h2>Agentes Cadastrados</h2>
+    <div className="pageListaProfissionais">
+      <h2>Profissionais Cadastrados</h2>
 
       {/* Tabela com mesmo estilo dos agendamentos */}
       <table className="tabela-doses">
         <thead>
           <tr>
-            <th>Nome</th>
+            <th>NOME</th>
             <th>CPF</th>
             <th>CNS</th>
             <th>CBO</th>
-            <th>Município</th>
+            <th>MUNÍCIPIO</th>
             <th>UF</th>
-            <th>Ações</th>
+            <th>AÇÕES</th>
           </tr>
         </thead>
 
         <tbody>
-          {agentes.map((a) => (
+          {profissionais.map((a) => (
             <tr key={a.id}>
               <td>{a.nome}</td>
               <td>{a.cpf}</td>
@@ -88,8 +88,7 @@ export default function ListaAgentes() {
         <div className="form-card">
           <h3>Editando Agente</h3>
 
-          <label>
-            Nome
+          <label>NOME
             <input
               name="nome"
               value={form.nome}
@@ -97,8 +96,7 @@ export default function ListaAgentes() {
             />
           </label>
 
-          <label>
-            CPF
+          <label>CPF
             <input
               name="cpf"
               value={form.cpf}
@@ -106,8 +104,7 @@ export default function ListaAgentes() {
             />
           </label>
 
-          <label>
-            CNS
+          <label>CNS
             <input
               name="cns"
               value={form.cns}
@@ -115,8 +112,7 @@ export default function ListaAgentes() {
             />
           </label>
 
-          <label>
-            CBO
+          <label>CBO
             <input
               name="cbo"
               value={form.cbo}
@@ -124,8 +120,7 @@ export default function ListaAgentes() {
             />
           </label>
 
-          <label>
-            Município
+          <label>MUNICÍPIO
             <input
               name="municipio"
               value={form.municipio}
@@ -133,8 +128,7 @@ export default function ListaAgentes() {
             />
           </label>
 
-          <label>
-            UF
+          <label>UF
             <input
               name="uf"
               value={form.uf}
