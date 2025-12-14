@@ -25,12 +25,33 @@ export default function ListaUnidades() {
     setUnidades(res.data);
   }
 
-  async function excluir(id) {
-    if (window.confirm("Deseja excluir esta unidade?")) {
-      await api.delete(`/unidades/${id}`);
-      carregarUnidades();
+
+   // correção do erro 409
+async function excluir(id) {
+  const confirmar = window.confirm(
+    "Tem certeza que deseja excluir esta unidade?"
+  );
+
+  if (!confirmar) return;
+
+  try {
+    await api.delete(`/unidades/${id}`);
+
+    alert("Unidade excluída com sucesso!");
+
+  } catch (error) {
+    //  Regra de negócio (FK)
+    if (error.response?.status === 409) {
+      alert(error.response.data.error);
+      return;
     }
+
+    // Outros erros (500, rede, etc.)
+    console.error(error);
+    alert("Erro inesperado ao excluir a unidade.");
   }
+}
+
 
   function iniciarEdicao(unidade) {
     setEditando(unidade.id);
