@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import "../../styles/Listagem/ListarTransferencia.css"; // usa o mesmo estilo das outras listas
+import { isoToBR, toInputDate } from "../../utils/date";
+
 
 export default function ListaTransferencias() {
   const [transferencias, setTransferencias] = useState([]);
@@ -83,7 +85,7 @@ export default function ListaTransferencias() {
               <td>{nomeUnidade(t.estabelecimento_origem)}</td>
               <td>{nomeUnidade(t.estabelecimento_destino)}</td>
               <td>{t.quantidade_transferida}</td>
-              <td>{t.data_transferencia}</td>
+              <td>{isoToBR(t.data_transferencia)}</td>
               <td>{t.nome_profissional}</td>
               <td>{t.cpf_profissional}</td>
               <td style={{ display: "flex", gap: "10px" }}>
@@ -114,8 +116,7 @@ export default function ListaTransferencias() {
 
           <label>Origem
             <select name="estabelecimento_origem" value={form.estabelecimento_origem}
-              onChange={e => setForm({ ...form, estabelecimento_origem: e.target.value })}
-            >
+              onChange={e => setForm({ ...form, estabelecimento_origem: e.target.value })}>
               <option value="">Selecione</option>
               {unidades.map(u => (
                 <option key={u.id} value={u.id}>{u.nome_fantasia}</option>
@@ -125,8 +126,7 @@ export default function ListaTransferencias() {
 
           <label>Destino
             <select name="estabelecimento_destino" value={form.estabelecimento_destino}
-              onChange={e => setForm({ ...form, estabelecimento_destino: e.target.value })}
-            >
+              onChange={e => setForm({ ...form, estabelecimento_destino: e.target.value })}>
               <option value="">Selecione</option>
               {unidades.map(u => (
                 <option key={u.id} value={u.id}>{u.nome_fantasia}</option>
@@ -136,26 +136,25 @@ export default function ListaTransferencias() {
 
           <label>Quantidade
             <input type="number" value={form.quantidade_transferida}
-              onChange={e => setForm({ ...form, quantidade_transferida: e.target.value })}
-            />
+              onChange={e => setForm({ ...form, quantidade_transferida: e.target.value })}/>
           </label>
 
           <label>Data
-            <input type="date" value={form.data_transferencia}
-              onChange={e => setForm({ ...form, data_transferencia: e.target.value })}
-            />
+            <input
+              type="date"
+              value={toInputDate(form.data_transferencia)}
+              onChange={e => setForm({ ...form, data_transferencia: e.target.value })}/>
+
           </label>
 
           <label>Nome Profissional
             <input value={form.nome_profissional}
-              onChange={e => setForm({ ...form, nome_profissional: e.target.value })}
-            />
+              onChange={e => setForm({ ...form, nome_profissional: e.target.value })}/>
           </label>
 
-          <label>CPF 
+          <label>CPF
             <input value={form.cpf_profissional}
-              onChange={e => setForm({ ...form, cpf_profissional: e.target.value })}
-            />
+              onChange={e => setForm({ ...form, cpf_profissional: e.target.value })}/>
           </label>
 
           <div className="form-actions">

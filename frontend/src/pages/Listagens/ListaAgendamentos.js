@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./../../styles/Listagem/tabelaAgendamento.css"; 
+import "./../../styles/Listagem/tabelaAgendamento.css";
 
 export default function ListaAgendamentos() {
   const [agendamentos, setAgendamentos] = useState([]);
@@ -10,35 +10,54 @@ export default function ListaAgendamentos() {
   const [agendamentoSelecionado, setAgendamentoSelecionado] = useState(null);
   const [novaData, setNovaData] = useState("");
 
+  
+  // yyyy-mm-dd (para input date)
+  const toISODate = (data) => {
+    if (!data) return "";
+    return new Date(data).toISOString().split("T")[0];
+  };
+
+  // dd/mm/yyyy (para exibição)
+  const toBRDate = (data) => {
+    if (!data) return "";
+    return new Date(data).toLocaleDateString("pt-BR");
+  };
+
+  
   const carregar = () => {
-    axios.get("http://localhost:3001/agendamentos").then((res) => {
-      setAgendamentos(res.data);
-    });
+    axios.get("http://localhost:3001/agendamentos")
+      .then((res) => {
+        setAgendamentos(res.data);
+      })
+      .catch(() => {
+        alert("Erro ao carregar agendamentos");
+      });
   };
 
   useEffect(() => {
     carregar();
   }, []);
 
+  
   const remover = async (id) => {
     if (window.confirm("Excluir agendamento?")) {
       await axios.delete(`http://localhost:3001/agendamentos/${id}`);
       carregar();
     }
   };
-
+  
   const abrirReagendar = (ag) => {
     setAgendamentoSelecionado(ag);
-    setNovaData(ag.data);
+    setNovaData(toISODate(ag.data)); 
     setMostrarModal(true);
   };
-
+  
   const salvarReagendamento = async () => {
     await axios.put(
       `http://localhost:3001/agendamentos/${agendamentoSelecionado.id}`,
       {
         ...agendamentoSelecionado,
-        data: novaData,
+        data: novaData // yyyy-mm-dd
       }
     );
 
@@ -47,8 +66,9 @@ export default function ListaAgendamentos() {
     alert("Agendamento reagendado com sucesso!");
   };
 
+  
   return (
-    <div className="page">
+    <div className="pageAgendamento">
       <h1>Agendamentos</h1>
 
       <table className="tabela-doses">
@@ -68,7 +88,7 @@ export default function ListaAgendamentos() {
               <td>{a.nome_paciente}</td>
               <td>{a.cpf_paciente}</td>
               <td>{a.vacina}</td>
-              <td>{a.data}</td>
+              <td>{toBRDate(a.data)}</td> 
               <td style={{ display: "flex", gap: 10 }}>
 
                 <button
@@ -84,6 +104,7 @@ export default function ListaAgendamentos() {
                 >
                   Excluir
                 </button>
+
               </td>
             </tr>
           ))}

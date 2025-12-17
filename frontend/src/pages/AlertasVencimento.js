@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { isoToBR } from "../utils/date";
 import "./../styles/alertas.css";
 
 export default function AlertasVencimento() {
@@ -41,7 +42,7 @@ export default function AlertasVencimento() {
           <div className={`alert-card ${getStatusColor(v.validade)}`} key={v.id}>
             <div className="alert-title">{v.nome_vacina}</div>
 
-            <p><strong>Validade:</strong> {v.validade}</p>
+            <p><strong>Validade:</strong> {isoToBR(v.validade)}</p>
             <p><strong>Quantidade:</strong> {v.quantidade}</p>
           </div>
         ))}

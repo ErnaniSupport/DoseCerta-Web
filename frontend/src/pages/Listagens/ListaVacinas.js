@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
 import "./../../styles/Listagem/listarVacinas.css";
+import { isoToBR, toInputDate } from "../../utils/date";
+
+
 
 export default function ListaVacinas() {
   const [vacinas, setVacinas] = useState([]);
@@ -18,30 +21,8 @@ export default function ListaVacinas() {
     cpf_profissional: ""
   });
 
-  // ---------------------------
-  // 🟦 Funções para tratar datas
-  // ---------------------------
 
-  // Converte YYYY-MM-DD → DD/MM/YYYY (para exibição)
-  function formatarDataBR(dataISO) {
-    if (!dataISO) return "";
-    if (dataISO.includes("/")) return dataISO; // já BR
-    const [ano, mes, dia] = dataISO.split("-");
-    return `${dia}/${mes}/${ano}`;
-  }
-
-  // Converte DD/MM/YYYY → YYYY-MM-DD (para salvar ou usar no input)
-  function formatarDataISO(dataBR) {
-    if (!dataBR) return "";
-    if (dataBR.includes("-")) return dataBR; // já ISO
-    const [dia, mes, ano] = dataBR.split("/");
-    return `${ano}-${mes}-${dia}`;
-  }
-
-  // ---------------------------
-  // 🟩 Carregar dados
-  // ---------------------------
-
+  
   useEffect(() => {
     carregar();
   }, []);
@@ -51,20 +32,22 @@ export default function ListaVacinas() {
     setVacinas(res.data);
   }
 
-  // ---------------------------
-  // 🟥 Excluir
-  // ---------------------------
-
+  
   async function excluir(id) {
-    if (window.confirm("Deseja excluir esta vacina?")) {
-      await api.delete(`/vacinas/${id}`);
-      carregar();
+  if (!window.confirm("Deseja excluir esta vacina?")) return;
+
+  try {
+    await api.delete(`/vacinas/${id}`);
+    carregar();
+  } catch (err) {
+    if (err.response?.status === 409) {
+      alert("❌ Esta vacina não pode ser excluída pois já foi utilizada em registros (doses, transferências ou agendamentos).");
+    } else {
+      alert("Erro ao excluir vacina.");
     }
   }
+}
 
-  // ---------------------------
-  // 🟨 Iniciar edição
-  // ---------------------------
 
   function iniciarEdicao(v) {
     setEditando(v.id);
@@ -76,11 +59,7 @@ export default function ListaVacinas() {
         : v.validade // se vier ISO, mantém
     });
   }
-
-  // ---------------------------
-  // 🟩 Salvar edição
-  // ---------------------------
-
+  
   async function salvarEdicao(e) {
     e.preventDefault();
 
@@ -97,10 +76,6 @@ export default function ListaVacinas() {
     setEditando(null);
     carregar();
   }
-
-  // ---------------------------
-  // 🟦 Renderização
-  // ---------------------------
 
   return (
     <div className="pageListaVacina">
@@ -126,10 +101,7 @@ export default function ListaVacinas() {
               <td>{v.nome_vacina}</td>
               <td>{v.fabricante}</td>
               <td>{v.lote}</td>
-
-              {/* Exibição em formato BR */}
-              <td>{formatarDataBR(v.validade)}</td>
-
+              <td>{isoToBR(v.validade)}</td>
               <td>{v.quantidade}</td>
               <td>{v.nome_profissional}</td>
               <td>{v.cpf_profissional}</td>
@@ -188,7 +160,7 @@ export default function ListaVacinas() {
             <input
               type="date"
               name="validade"
-              value={form.validade}
+               value={toInputDate(form.validade)}
               onChange={(e) => setForm({ ...form, validade: e.target.value })}
             />
           </label>
