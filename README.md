@@ -51,10 +51,13 @@ http://localhost:3000
 ---
 
 ##  Endpoints da aplicação 
-
+```
 <p align="center">
   <img src="./assets/DoseCerta2.JPG" alt="Documentação da API DoseCerta" width="700">
 </p>
+
+
+```
 
 ---
 
